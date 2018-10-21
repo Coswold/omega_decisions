@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+  <style>
+  #dec {
+     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+     border-collapse: collapse;
+     width: 100%;
+  }
+
+  #dec td, #dec th {
+     border: 1px solid #ddd;
+     padding: 8px;
+  }
+
+  #dec tr:nth-child(even){background-color: #f2f2f2;}
+
+  #dec tr:hover {background-color: #ddd;}
+
+  #dec th {
+     padding-top: 12px;
+     padding-bottom: 12px;
+     text-align: left;
+     background-color: orange;
+     color: white;
+  }
+  </style>
+    <meta charset="utf-8">
+    <title>List</title>
+  </head>
+  <body>
+    {% extends "template.html" %}
+    {% block content %}
+    <h1> Decision List </h1>
+    <form action = "{{ url_for('delrec') }}" method = "DELETE">
+       Enter Unique Key to Complete Decision<br>
+       <input type = "text" name = "del_key" /><br>
+       <input type = "submit" value = "submit" /></br>
+    </form>
+    <table border = 1 id = "dec">
+         <thead>
+            <th>Decision</td>
+            <th>Email</td>
+         </thead>
+         
+         {% for row in rows %}
+            <tr>
+               <td>{{row["dec"]}}</td>
+               <td>{{row["owner"]}}</td>
+            </tr>
+         {% endfor %}
+      </table>
+    {% endblock %}
+  </body>
+</html>
