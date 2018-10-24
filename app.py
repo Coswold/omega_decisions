@@ -33,17 +33,15 @@ def list():
 	rows = cur.fetchall();
 	return render_template("list.html", rows = rows)
 
-@app.route('/delrec',methods = ['DELETE', 'GET'])
+@app.route('/delrec',methods = ['DELETE', 'POST'])
 def delrec():
-	print("\n\nMade it!\n\n")
-	if request.method == 'DELETE':
-		print("\n\nMade it!\n\n")
+	if request.method == 'POST':
 		try:
 			d_key = request.form['del_key']
 			with sqlite3.connect("decision.db") as con:
 				cur = con.cursor()
-				cur.execute("DELETE FROM decisions WHERE _id == ?;", (d_key))
-				print("COOL")
+				print(d_key)
+				cur.execute("DELETE FROM decisions WHERE del_key = '{}'".format(d_key))
 
 				con.commit()
 				msg = "Decision Completed"
